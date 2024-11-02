@@ -1,4 +1,5 @@
-import os
+#!/bin/python3
+import os, sys
 import argparse
 from PIL import Image
 
@@ -16,15 +17,21 @@ def trouver_jpeg_non_valides(chemin_arborescence):
                         img.verify()  # Vérifier si l'image est valide
                 except Exception:
                     # Si une exception est levée, le fichier est non valide
+                    print(chemin_fichier)
+
                     jpeg_non_valides.append(chemin_fichier)
 
-    # Afficher les fichiers non valides trouvés
-    print("Fichiers JPEG non valides trouvés :")
-    for fichier in jpeg_non_valides:
-        print(fichier)
+    # # Afficher les fichiers non valides trouvés
+    # print("Fichiers JPEG non valides trouvés :")
+    # for fichier in jpeg_non_valides:
+    #     print(fichier)
 
 # Configuration de l'argument de ligne de commande
 if __name__ == "__main__":
+
+    # stdout buffering setup to allow stdout line by line piping
+    sys.stdout.reconfigure(line_buffering=True)
+
     parser = argparse.ArgumentParser(description="Lister les images JPEG non valides dans une arborescence.")
     parser.add_argument("-i", "--input", required=True, help="Chemin de l'arborescence à scanner")
 
